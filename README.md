@@ -56,7 +56,6 @@ Kodėl? Integruojasi lengvai su Django, modernus variantas ir, svarbiausia, turi
 
 MVP:
 * Registracija
-* Registracijos aktivavymas per email
 * Prisijungimas (jwt-auth)
 * READ ir UPDATE profiliai
 * Tapimas draugu
@@ -70,6 +69,7 @@ MVP:
 Extras:
 * Report vartotojas funkcija
 * Svetainės Analitika
+* Registracijos aktivavymas per email
 
 ## Duomenų bazės projektavimas
 
