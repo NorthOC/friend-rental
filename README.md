@@ -79,4 +79,10 @@ Padariau duomenų bazės planą, kad būtų lengviau suprogramuoti su Django ORM
 
 ## Programavimas
 
-Tai dabar esu čia. Pradedu programuoti ir kai turėsiu daugiau, parašysiu.
+Pirmiausia suprogramavau User modelį. Nusprendžiau, sujungti User ir Profile, nes mažiau DB bus calls. (žiūrėti `antivienas/database/models.py`)
+
+box_color modelis taip pat išnyko. Tapo pasirinkimų laukeliu. Vėlgi - mažiau DB calls.
+
+Atsirado nauji du modeliai, nes pagalvojau, kad durna, jog netrackinu payments. Taigi, payment_history ir withdrawal_request modeliai dar bus included.
+
+Laukite tesinio.
