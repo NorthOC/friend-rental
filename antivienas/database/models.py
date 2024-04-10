@@ -3,6 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+#TODO: ADD PAYMENT HISTORY MODEL
+#TODO: ADD REVIEW MODEL
+#TODO: ADD ORDER MODEL
+#TODO: ADD WITHDRAWAL REQUEST MODEL
+
 class CityOfService(models.TextChoices):
     """ List of Lithuanian cities """
     VILNIUS = "Vilnius"
@@ -69,9 +74,12 @@ class CityOfService(models.TextChoices):
     ZARASAI = "Zarasai"
     NUOTOLINIU = "Nuotoliniu"
 
-class Gender(models.TextChoices):
+class Genders(models.TextChoices):
     VYR = "vyr"
     MOT = "mot"
+
+def user_img_upload_path(instance, filename):
+    return f"user_uploads/user_{instance.pk}/{filename}"
 
 class User(AbstractUser):
     """
@@ -96,57 +104,39 @@ class User(AbstractUser):
     +sex - vyr, mot
     +height_cm
 
-    link_one - url to their website
-    link_two - url to their website
-    link_one_name
-    link_two_name
-    img_one     --
-    img_two      |______ images
-    img_three   --
-    interest_one    --
-    interest_two     |_____ interests
-    interest_three   |
-    interest_four   --
-    interest_color_one      --
-    interest_color_two       |_____ interest box bg color
-    interest_color_three     |
-    interest_color_four     --
+    +img_one     --
+    +img_two      |______ images
+    +img_three   --
+    +interest_one    --
+    +interest_two     |_____ interests
+    +interest_three   |
+    +interest_four   --
+    +interest_color_one      --
+    +interest_color_two       |_____ interest box bg color
+    +interest_color_three     |
+    +interest_color_four     --
     """
 
     class ProfileTypes(models.TextChoices):
         # users have a different profile type from friends
-        USER = "USER", _("User")
-        FRIEND = "FRIEND", _("Friend")
+        USER = "User"
+        FRIEND = "Friend"
     
     class EducationLevels(models.TextChoices):
         VIDURINIS = "Vidurinis"
         AUKSTESNYSIS = "Aukštesnysis"
-        AUKSTASIS = "AUKŠTASIS"
+        AUKSTASIS = "Aukštasis"
     
     class PersonalityTypes(models.TextChoices):
-        #purple
-        INTJ = "INTJ"
-        INTP = "INTP"
-        ENTJ = "ENTJ"
-        ENTP = "ENTP"
+        INTRAVERT = "Intravert"
+        EKSTRAVERT = "Ekstravert"
 
-        #green
-        INFJ = "INFJ"
-        INFP = "INFP"
-        ENFJ = "ENFJ"
-        ENFP = "ENFP"
-
-        #blue
-        ISTJ = "ISTJ"
-        ISFJ = "ISFJ"
-        ESTJ = "ESTJ"
-        ESFJ = "ESFJ"
-
-        #yellow
-        ISTP = "ISTP"
-        ISFP = "ISFP"
-        ESTP = "ESTP"
-        ESFP = "ESFP"
+    class InterestColorHexes(models.TextChoices):
+        GRAY = "#D9D9D9"
+        RED = "#F6C4C4"
+        BLUE = "#B2D8EE"
+        GREEN = "#B8F2C1"
+        PURPLE = "#F1B8F2"
 
     # for login (using email)
     email = models.EmailField(unique=True)
@@ -167,11 +157,26 @@ class User(AbstractUser):
                             blank=True)
     job = models.CharField(max_length=40, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
-    personality_type = models.CharField(max_length=4,
+    personality_type = models.CharField(max_length=10,
                                         choices=PersonalityTypes,
                                         null=True,
                                         blank=True)
-    sex = models.CharField(max_length=3, blank=True, null=True)
+    sex = models.CharField(max_length=3, choices=Genders, blank=True, null=True)
     height_cm = models.PositiveIntegerField(blank=True, 
                                             null=True, 
                                             validators=[MinValueValidator(0), MaxValueValidator(300)])
+
+    img_one = models.ImageField(upload_to=user_img_upload_path, blank=True, null=True)
+    img_two = models.ImageField(upload_to=user_img_upload_path, blank=True, null=True)
+    img_three = models.ImageField(upload_to=user_img_upload_path, blank=True, null=True)
+
+    interest_one =      models.CharField(max_length=25, blank=True, null=True)
+    interest_two =      models.CharField(max_length=25, blank=True, null=True)
+    interest_three =    models.CharField(max_length=25, blank=True, null=True)
+    interest_four =     models.CharField(max_length=25, blank=True, null=True)
+
+    interest_color_one = models.CharField(max_length=7, choices=InterestColorHexes, default=InterestColorHexes.GRAY)
+    interest_color_two = models.CharField(max_length=7, choices=InterestColorHexes, default=InterestColorHexes.GRAY)
+    interest_color_three = models.CharField(max_length=7, choices=InterestColorHexes, default=InterestColorHexes.GRAY)
+    interest_color_four = models.CharField(max_length=7, choices=InterestColorHexes, default=InterestColorHexes.GRAY)
+
