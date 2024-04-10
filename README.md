@@ -32,7 +32,7 @@ Matosi vientisa tema. Logotipas padarytas su Photopea (aka. nemokamas photoshop)
 
 ## Web Stekas
 
-![SvelteKit + Django DRF + PostgreSQL](/readme_assets/4.png)
+Django + DRF + PostgreSQL + JS (galbūt bus dar ir HTMX)
 
 Jei reiks, įdėsiu caching su Redis.
 
@@ -40,17 +40,7 @@ Hostinsiu viską serveryje arba VPS. Jokių Amazon ar Azure. Tai sprendimas sojo
 
 Payment procesoriaus dar nežinau. Pasirinkimas yra tarp Stripe, Paysera ir Montonio. Tas kuris turės geriausias sąlygas mano verslo tipui.
 
-### Frontend: SvelteKit
-
-Kodėl? Nes bbd aš ant tų visų frameworkų su savo virtual DOMs, dependency hell ir sintaksėm, kuri atrodo, kad parašyta ateiviams iš marso. Nebus jokių sudėtingų animacijų ir draugų platforma nėra one-page web aplikacija. Galėčiau daryti su vanilla JS, bet valdyti API yra daug lengviau su framework'u (nes jis tam yra pritaikytas).
-
-### Backend: Django DRF
-
-Kodėl? Tiesiog patink ir tiek. Dauguma problemų jie man išsprendžia automatiškai, kurios atsiranda kuriant API nuo nulio.
-
-### Database: PostgreSQL
-
-Kodėl? Integruojasi lengvai su Django, modernus variantas ir, svarbiausia, turi gerą licenziją.
+Žodžiu, bandau sau neapsisunkint per daug ir fokusuojuosi į server-side rendering.
 
 ## Funkcionalumų milestone
 
@@ -84,5 +74,7 @@ Pirmiausia suprogramavau User modelį. Nusprendžiau, sujungti User ir Profile, 
 box_color modelis taip pat išnyko. Tapo pasirinkimų laukeliu. Vėlgi - mažiau DB calls.
 
 Atsirado nauji du modeliai, nes pagalvojau, kad durna, jog netrackinu payments. Taigi, payment_history ir withdrawal_request modeliai dar bus included.
+
+Taip pat pasidomėjau daugiau apie svetainių architektūrą. Tai manau apsieisim ir be Svelte. Didžioji dalis svetainės bus server-side rendered, ir, tik kai kurie komponentai bus padaryti su Django REST framework (pavyzdžiui, profile EDIT funkcija).
 
 Laukite tesinio.
