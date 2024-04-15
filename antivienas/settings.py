@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My apps
-    'antivienas.api.apps.ApiConfig', # for api functions
-    'antivienas.database.apps.DatabaseConfig' # for managing database
+    'antivienas.frontend.apps.FrontendConfig', # for front-end stuff (templates, static files, scripts, etc.)
+    'antivienas.backend.apps.BackendConfig', # for views and routing
+    'antivienas.api.apps.ApiConfig', # for api functions and routing
+    'antivienas.database.apps.DatabaseConfig', # for managing database
 ]
 
 MIDDLEWARE = [

@@ -75,28 +75,6 @@ class Genders(models.TextChoices):
     VYR = "vyr"
     MOT = "mot"
 
-class FriendSetting(models.Model):
-    """
-    When Users become friends, they get special settings
-    _________________________________
-    is_public - defines if the listing is public
-    public_from - last time profile became public
-    level - Complete orders increase expertise
-    """
-
-    price_per_hour =    models.PositiveIntegerField()
-    is_public =         models.BooleanField(default=False)
-
-    class LvlOfExperience(models.IntegerChoices):
-        NEWBIE      = 1, "Newbie"       # starting lvl
-        EXPERIENCED = 2, "Experienced"  # after completing 2 orders
-        VETERAN     = 3, "Veteran"      # after completing 10 orders
-        EXPERT      = 4, "Expert"       # reserved for psychology majors
-    
-    level =             models.SmallIntegerField(choices=LvlOfExperience, default=LvlOfExperience.NEWBIE)
-    created =           models.DateTimeField(auto_now_add=True)
-    public_from =       models.DateTimeField(null=True, blank=True)
-
 def user_img_upload_path(instance, filename):
     return f"user_uploads/user_{instance.pk}/{filename}"
 
@@ -163,7 +141,6 @@ class User(AbstractUser):
     personality_type =  models.CharField(max_length=10, choices=PersonalityTypes, null=True, blank=True)
     sex =               models.CharField(max_length=3, choices=Genders, blank=True, null=True)
     height_cm =         models.PositiveIntegerField(blank=True, null=True, validators=[MinValueValidator(0), MaxValueValidator(300)])
-    settings =          models.ForeignKey(FriendSetting, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     img_one =           models.ImageField(upload_to=user_img_upload_path, blank=True, null=True)
     img_two =           models.ImageField(upload_to=user_img_upload_path, blank=True, null=True)
@@ -182,6 +159,33 @@ class User(AbstractUser):
     account_number =            models.CharField(max_length=20, blank=True, null=True)
     account_holder_details =    models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return str(self.pk)
+
+class FriendSetting(models.Model):
+    """
+    When Users become friends, they get special settings
+    _________________________________
+    is_public - defines if the listing is public
+    public_from - last time profile became public
+    level - Complete orders increase expertise
+    """
+
+    friend =            models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    price_per_hour =    models.PositiveIntegerField(default=0)
+    is_public =         models.BooleanField(default=False)
+
+    class LvlOfExperience(models.IntegerChoices):
+        NEWBIE      = 1, "Newbie"       # starting lvl
+        EXPERIENCED = 2, "Experienced"  # after completing 2 orders
+        VETERAN     = 3, "Veteran"      # after completing 10 orders
+        EXPERT      = 4, "Expert"       # reserved for psychology majors
+    
+    level =             models.SmallIntegerField(choices=LvlOfExperience, default=LvlOfExperience.NEWBIE)
+    created =           models.DateTimeField(auto_now_add=True)
+    public_from =       models.DateTimeField(null=True, blank=True)
+
+
 class Order(models.Model):
     """
     Defines the order for meeting
@@ -190,6 +194,7 @@ class Order(models.Model):
     no_of_hours - number of hours the meeting will take place
     comment - user describes what they are going to do together
     total_price - no_of_hours * friend.settings.price_per_hour
+    fee - a % of how greedy I want to be (also transaction fees)
     """
     class OrderStatuses(models.IntegerChoices):
         INITIATED   = 1, 'Initiated'     # when user inits order
@@ -207,10 +212,13 @@ class Order(models.Model):
     meeting_place = models.CharField(max_length=300)
     comment =       models.TextField(max_length=1500)
     total_price =   models.DecimalField(max_digits=6, decimal_places=2)
+    fee =           models.DecimalField(max_digits=6, decimal_places=2)
+    profit =        models.DecimalField(max_digits=6, decimal_places=2)
 
     order_status =          models.SmallIntegerField(choices=OrderStatuses, default=OrderStatuses.INITIATED)
     order_message_user =    models.CharField(max_length=300)
     order_message_friend =  models.CharField(max_length=300)
+    created =               models.DateTimeField(auto_now_add=True)
 
 class UserReview(models.Model):
     """
@@ -251,29 +259,26 @@ class Withdrawal(models.Model):
     was_cleared - when I send the person money, I gotta do this.
     date_when_cleared - also set this after I send money
     """
-    user =      models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    amount =    models.DecimalField(max_digits=6, decimal_places=2)
-    wallet_snapshot_before =    models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(0)])
+    user =                      models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    amount =                    models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(10)])
+    wallet_snapshot_before =    models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(10)])
     wallet_snapshot_after =     models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(0)])
-    initiated =         models.DateTimeField(auto_now_add=True)
-    was_cleared =       models.BooleanField(default=False)
-    date_when_cleared = models.DateTimeField(blank=True, null=True)
-
-    account_number = models.CharField(max_length=20)
-    account_holder_details = models.CharField(max_length=200)
+    was_cleared =               models.BooleanField(default=False)
+    date_when_cleared =         models.DateTimeField(blank=True, null=True)
+    account_number =            models.CharField(max_length=20)
+    account_holder_details =    models.CharField(max_length=200)
+    created =                   models.DateTimeField(auto_now_add=True)
 
 class Payment(models.Model):
     """
     Used to collect history of payments after user pays for friend
     ___________________________
     amount_paid - total amount for how much the user paid for service
-    fee - a % of how greedy I want to be (also transaction fees)
     was_disputed - if friend didn't provide service, the user can send a dispute (in 24 hour time)
     date_of_payout - 24 hours after meeting time
     """
     order =             models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    amount_paid =       models.DecimalField(max_digits=6, decimal_places=2)
-    fee =               models.DecimalField(max_digits=6, decimal_places=2)
+    amount =            models.DecimalField(max_digits=6, decimal_places=2)
     was_disputed =      models.BooleanField(default=False)
     created =           models.DateTimeField(auto_now_add=True)
     date_of_payout =    models.DateTimeField()
@@ -282,7 +287,7 @@ class Dispute(models.Model):
     """
     For handling disputes and dealing with problematic users/friends.
     _________________________________
-    self-explanatory
+    report_by_user - if user or friend made the report.
     """
     class Statuses(models.IntegerChoices):
         NEW = 1, "New report"
@@ -290,8 +295,17 @@ class Dispute(models.Model):
         DISPUTED = 3, "Disputed"
 
     order =     models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    reporter =  models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="reporter")
-    reported =  models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="reported")
-    is_guilty = models.BooleanField(default=False)
+    reported_by_user = models.BooleanField()
+    message =   models.TextField(max_length=1000)
     status =    models.SmallIntegerField(choices=Statuses, default=Statuses.NEW)
     created =   models.DateTimeField(auto_now_add=True)
+
+class Log(models.Model):
+    """
+    used for logging actions on website
+    ________________________________
+    self_explanatory
+    """
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    message = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True)

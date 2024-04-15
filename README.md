@@ -67,14 +67,18 @@ Padariau duomenų bazės planą, kad būtų lengviau suprogramuoti su Django ORM
 
 ![pirmoji versija, tikrai bus daugiau](/readme_assets/5.png)
 
+Čia pirma versija, tai tikrai bus daug pakeitimų.
+
 ## Programavimas
 
-Pirmiausia suprogramavau User modelį. Nusprendžiau, sujungti User ir Profile, nes mažiau DB bus calls. (žiūrėti `antivienas/database/models.py`)
+## Duomenų bazė (BAIGTA)
 
-box_color modelis taip pat išnyko. Tapo pasirinkimų laukeliu. Vėlgi - mažiau DB calls.
+Žodžiu, gavosi taip, kad daug ką pakeičiau programavimo metu, nes vis atsirasdavo naujų idėjų, taigi, dabar DB atrodo taip:
 
-Atsirado nauji du modeliai, nes pagalvojau, kad durna, jog netrackinu payments. Taigi, payment_history ir withdrawal_request modeliai dar bus included.
+![](/readme_assets/db_stable_version.png)
 
-Taip pat pasidomėjau daugiau apie svetainių architektūrą. Tai manau apsieisim ir be Svelte. Didžioji dalis svetainės bus server-side rendered, ir, tik kai kurie komponentai bus padaryti su Django REST framework (pavyzdžiui, profile EDIT funkcija).
+Daugiau paaiškinimų apie kiekvieną lauką gali rasti faile `/antivienas/database/models.py`.
 
-Laukite tesinio.
+## Routes (WIP)
+
+Laukite tesinio
