@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* VARIABLES */
+
+:root{
+    --bg: #F0F2F5;
+    --component-bg: white; 
+    --text: black;
+    --pre-text: #686868;
+}
+
+/* GLOBAL CSS */
+
+*,*::before,*::after{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body{
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+}
+
+a{
+    color: var(--text);
+}
+a:hover {
+    text-decoration: none;
+}
+
+/* components/top-nav.html */
+
+.nav-top{
+    display: grid;
+    padding: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    background-color: var(--component-bg);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.250);
+}
+.nav-top .logo-container{
+    display: flex;
+    gap: 10px;
+}
+.nav-top img{
+    max-width: 60px;
+}
+.nav-top .site-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nav-top .guide-container{
+    display: flex;
+    justify-content: center;
+}
+.nav-top .user-container{
+    display: flex;
+    justify-content: end;
+}
+.nav-top h1{
+    text-transform: uppercase;
+    font-size: 16px;
+}
+.nav-top small{
+    color: var(--pre-text);
+}
