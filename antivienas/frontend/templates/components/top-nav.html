@@ -1,16 +1,33 @@
 {% load static %}
 <nav class="nav-top">
     <div class="logo-container">
-        <img src="{% static 'assets/antivienas-logo.svg' %}" alt="">
-        <div class="site-title">
-            <h1>Anti Vienas</h1>
-            <small>Draugų platforma</small>
-        </div>
+        <a href="/">
+            <img src="{% static 'assets/antivienas-logo.svg' %}" alt="">
+            <div class="site-title">
+                <h1>Anti Vienas</h1>
+                <small>Samdomi draugai</small>
+            </div>
+        </a>
     </div>
     <div class="guide-container">
         <p>Turi patarimų mums tobulėti? <a href="#">Pasidalink</a>!</p>
     </div>
     <div class="user-container">
-        <a href="#">Prisijungti</a>
+        <!-- IF USER NOT LOGGED IN 
+            <a href="#">Prisijungti</a> -->
+
+        <!-- IF LOGGED IN -->
+        <a href="#" class="wallet">0.00€</a>
+        <div id="expandable" class="user-expandable" x-data="{ open: false }" @click="open = ! open">
+            <img src="{% static 'assets/user-no-avatar.png' %}" alt="">
+            <i class="fa fa-angle-down expander"></i>
+            <div id="user-nav" class="user-nav" x-show="open" @click.outside="open = false">
+                <a href="#" class="nav-item"><img src="{% static 'assets/user-no-avatar.png' %}" alt=""> Denis Lisunov</a>
+                <hr>
+                <a href="#" class="nav-item"><i class="fa fa-question-circle fa-fw fa-2x"></i> Pagalba</a>
+                <a href="#" class="nav-item"><i class="fa fa-sign-out fa-fw fa-2x"></i> Atsijungti</a>
+                {% include "components/terms-of-service.html" %}
+            </div>
+        </div>
     </div>
 </nav>

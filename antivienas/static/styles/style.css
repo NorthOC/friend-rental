@@ -7,6 +7,11 @@
     --component-bg: white; 
     --text: black;
     --pre-text: #686868;
+    --light-gray: #D9D9D9;
+    --nav-hover: #E8E9EA;
+    --fade: #00000025;
+    --blue: #5f89ec;
+    --blue-hover: #81a6fd;
 }
 
 /* GLOBAL CSS */
@@ -14,6 +19,10 @@
 *,*::before,*::after{
     box-sizing: border-box;
     margin: 0;
+}
+
+html, body{
+    height: 100%;
 }
 
 body{
@@ -28,6 +37,25 @@ a:hover {
     text-decoration: none;
 }
 
+.nav-item{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+.nav-item:hover{
+    background-color: var(--nav-hover);
+}
+.tos a{
+    color: var(--pre-text);
+    text-decoration: none;
+}
+.tos a:hover{
+    text-decoration: underline;
+}
+
 /* components/top-nav.html */
 
 .nav-top{
@@ -36,14 +64,17 @@ a:hover {
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     background-color: var(--component-bg);
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.250);
+    box-shadow: 0px 0px 4px 0px var(--fade);
+    position: absolute;
+    width: 100%;
 }
-.nav-top .logo-container{
+.nav-top .logo-container a{
     display: flex;
     gap: 10px;
+    text-decoration: none;
 }
 .nav-top img{
-    max-width: 60px;
+    max-width: 45px;
 }
 .nav-top .site-title{
     display: flex;
@@ -64,4 +95,138 @@ a:hover {
 }
 .nav-top small{
     color: var(--pre-text);
+}
+.nav-top .user-expandable{
+    position: relative;
+}
+.nav-top .expander{
+    position: absolute;
+    right: 0px;
+    top: 25px;
+    width: 15px;
+    height: 15px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    text-align: center;
+}
+.nav-top .user-nav{
+    position: absolute;
+    background: var(--component-bg);
+    min-width: 300px;
+    right: 0;
+    padding: 5px;
+    box-shadow: 0px 0px 10px 0px var(--fade);
+    border-radius: 5px;
+    flex-direction: column;
+}
+.nav-top .user-nav i{
+    min-width: 45px;
+    min-height: 45px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.nav-top hr{
+    color: var(--fade);
+    margin: 5px 0px;
+}
+.nav-top .wallet{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+/* MAIN TAG GRID SPLITS */
+.main-triple-split{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+main{
+    padding-top: 70px;
+    height: 100%;
+}
+.left-container{
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.left-container small{
+    color: var(--pre-text);
+}
+
+/* SIDE NAV (LEFT) */
+.side-nav i{
+    min-width: 45px;
+    min-height: 45px;
+    background-color: var(--component-bg);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: var(--blue);
+}
+
+/* MIDDLE CONTAINER */
+.middle-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.middle-container .search-container{
+    background-color: var(--component-bg);
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    margin: 30px 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px var(--fade);
+}
+.search-container .filter-container{
+    display: flex;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+.search-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.search-container .filter select{
+    background: none;
+    border: none;
+}
+.search-container .search-field{
+    box-shadow: inset 1px 1px 2px 2px var(--fade);
+    border: none;
+    min-height: 40px;
+    border-radius: 20px;
+    padding-left: 15px;
+    width: 100%;
+    font-size: 18px;
+}
+.search-container .search-field:focus-visible{
+    outline: none;
+}
+.search-container .search-box{
+    position: relative;
+}
+.search-container .search-submit{
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    top: 4px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.8em;
+    color: var(--blue);
+}
+.search-container .search-submit:focus-visible{
+    outline: none;
+}
+.search-container .search-submit:hover{
+    color: var(--blue-hover);
 }
