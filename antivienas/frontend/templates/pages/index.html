@@ -29,12 +29,15 @@
             </p> 
             -->
             {% include "components/friend-card.html" %}
-            {% include "components/friend-card.html" %}
-            {% include "components/friend-card.html" %}
-            {% include "components/friend-card.html" %}
-            {% include "components/friend-card.html" %}
         </div>
-        <div class="right-container"></div>
+        <div class="right-container">
+            {% include "components/notifications.html" %}
+            <hr>
+            {% include "components/news.html" %}
+            <hr>
+            {% include "components/monthly-stats.html" %}
+        </div>
+
     </main>
 </body>
 </html>

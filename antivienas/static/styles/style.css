@@ -11,9 +11,11 @@
     --nav-hover: #E8E9EA;
     --fade: #00000025;
     --blue: #5f89ec;
+    --soft-blue: #C9DEFF;
     --blue-hover: #81a6fd;
     --star-color: #FFD600;
     --checkmark-color: #3c9940;
+    --pink: #F97FA4;
 }
 
 /* GLOBAL CSS */
@@ -346,4 +348,115 @@ main{
 .interest-item{
     padding: 2px 10px;
     border-radius: 20px;
+}
+/* RIGHT CONTAINER */
+.right-container{
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+}
+.right-container h2{
+    font-weight: 400;
+    font-size: 28px;
+}
+.right-container small{
+    font-size: 16px;
+    color: var(--pre-text);
+}
+.right-container hr{
+    margin: 20px 0px;
+    color: var(--fade);
+}
+/* STATS COMPONENT */
+.stats-container h3{
+    font-weight: 400;
+    font-size: 16px;
+}
+.stats-container .stats{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.stats .stat-item{
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    margin-top: 10px;
+}
+.stat-item .name {
+    display: flex;
+    gap: 10px;
+}
+.stat-item svg{
+    width: 18px;
+}
+.stat-item .visitor-stat{
+    fill: var(--pre-text);
+}
+.stat-item .order-stat{
+    fill: var(--checkmark-color);
+}
+.stat-item .friend-stat{
+    fill: var(--pink);
+}
+.stat-item .user-stat{
+    fill:var(--blue-hover)
+}
+/* NOTIFICATIONS COMPONENT */
+.notification-container .notifications{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 10px;
+}
+.notification-container img{
+    width: 45px;
+    height: 45px;
+
+}
+.notifications .notification-item{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.notification-item p{
+    align-self: center;
+}
+.notification-container a{
+    text-decoration: none;
+}
+.notification-container a:hover{
+    text-decoration: underline;
+}
+/* NEWS COMPONENT */
+.news-container .news{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.news-container .marker{
+    padding: 2px 10px;
+    border-radius: 15px;
+    background-color: var(--soft-blue);
+    height: min-content;
+    align-self: center;
+}
+.news .news-item{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    min-height: 48px;
+}
+.news-item h3{
+    align-self: center;
+    font-weight: 400;
+    font-size: 20px;
+}
+.news-container a{
+    text-decoration: none;
+}
+.news-container a:hover{
+    text-decoration: underline;
 }
