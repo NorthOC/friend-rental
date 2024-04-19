@@ -12,6 +12,8 @@
     --fade: #00000025;
     --blue: #5f89ec;
     --blue-hover: #81a6fd;
+    --star-color: #FFD600;
+    --checkmark-color: #3c9940;
 }
 
 /* GLOBAL CSS */
@@ -75,6 +77,7 @@ a:hover {
 }
 .nav-top img{
     max-width: 45px;
+    border-radius: 50%;
 }
 .nav-top .site-title{
     display: flex;
@@ -107,7 +110,13 @@ a:hover {
     height: 15px;
     background-color: var(--light-gray);
     border-radius: 50%;
-    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.expander svg{
+    width: 10px;
+    height: 10px;
 }
 .nav-top .user-nav{
     position: absolute;
@@ -119,14 +128,20 @@ a:hover {
     border-radius: 5px;
     flex-direction: column;
 }
-.nav-top .user-nav i{
-    min-width: 45px;
-    min-height: 45px;
-    background-color: var(--light-gray);
+.nav-top .user-nav .nav-item-logo{
+    width: 45px;
+    height: 45px;
+    background-color: var(--component-bg);
+    box-shadow: 0px 0px 4px 0px var(--light-gray);
     border-radius: 50%;
     justify-content: center;
     align-items: center;
     display: flex;
+}
+.user-nav svg{
+    max-width: 25px;
+    max-height: 25px;
+    fill: var(--text);
 }
 .nav-top hr{
     color: var(--fade);
@@ -158,15 +173,21 @@ main{
 }
 
 /* SIDE NAV (LEFT) */
-.side-nav i{
-    min-width: 45px;
-    min-height: 45px;
-    background-color: var(--component-bg);
+.side-nav svg{
+    max-width: 25px;
+    max-height: 25px;
+    fill: var(--blue);
+}
+.side-nav .nav-item-logo{
     border-radius: 50%;
+    padding: 5px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--component-bg);
+    box-shadow: 0px 0px 4px 0px var(--light-gray);
     justify-content: center;
     align-items: center;
     display: flex;
-    color: var(--blue);
 }
 
 /* MIDDLE CONTAINER */
@@ -174,10 +195,18 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
 }
+.middle-container::-webkit-scrollbar {
+    display: none;
+  }
+
+/* SEARCH BOX COMPONENT */
 .middle-container .search-container{
     background-color: var(--component-bg);
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
     padding: 20px;
     margin: 30px 0px;
@@ -195,7 +224,10 @@ main{
     gap: 20px;
 }
 .search-container .filter select{
-    background: none;
+    background: var(--nav-hover);
+    border-radius: 20px;
+    padding: 5px 10px;
+    min-width: 120px;
     border: none;
 }
 .search-container .search-field{
@@ -203,7 +235,7 @@ main{
     border: none;
     min-height: 40px;
     border-radius: 20px;
-    padding-left: 15px;
+    padding-left: 45px;
     width: 100%;
     font-size: 18px;
 }
@@ -212,21 +244,106 @@ main{
 }
 .search-container .search-box{
     position: relative;
+    display: flex;
+    gap: 10px;
 }
 .search-container .search-submit{
-    position: absolute;
+    min-width: 100px;
+    border: 1px solid var(--light-gray);
     background: none;
-    border: none;
-    padding: 0;
-    top: 4px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 1.8em;
-    color: var(--blue);
-}
-.search-container .search-submit:focus-visible{
-    outline: none;
+    border-radius: 5px;
 }
 .search-container .search-submit:hover{
-    color: var(--blue-hover);
+    border: 1px solid var(--blue);
+}
+.search-box i{
+    position: absolute;
+    font-size: 1.8em;
+    color: var(--blue);
+    top: 6px;
+    left: 5px;
+}
+/* FRIEND CARD COMPONENT */
+.friend-container{
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--component-bg);
+    border-radius: 30px;
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    box-shadow: 2px 2px 4px 0px var(--fade);
+    margin-bottom: 30px;
+}
+.friend-container img{
+    max-width: 120px;
+    border-radius: 50%;
+}
+.friend-container .left-part{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 120px;
+}
+.friend-container .right-part{
+    width: 100%;
+}
+.friend-container .level{
+    padding: 2px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--component-bg);
+}
+.friend-container .header{
+    display: flex;
+    justify-content: space-between;
+}
+.friend-container .header a{
+    margin-right: 10px;
+}
+.friend-container small{
+    font-size: 18px;
+    color: var(--pre-text);
+}
+.friend-container h2{
+    font-weight: 500;
+}
+.friend-container .profile-link-heading{
+    text-decoration: none;
+}
+.friend-container .rating-price{
+    display: flex;
+    gap: 10px;
+    font-size: 1.1em;
+}
+.rating-price a{
+    text-decoration: none;
+}
+.friend-container .rating-container, 
+.friend-container .price-container{
+    display: flex;
+    gap: 5px;
+}
+.rating-container svg{
+    fill: var(--star-color);
+    stroke: var(--text);
+    stroke-width: 20;
+    width: 21px;
+    height: 21px;
+}
+.price-container svg{
+    fill: var(--checkmark-color);
+    width: 20px;
+    height: 20px;
+}
+.friend-container .interest-container{
+    display: flex;
+    gap: 10px;
+    margin: 5px 0px;
+}
+.interest-item{
+    padding: 2px 10px;
+    border-radius: 20px;
 }

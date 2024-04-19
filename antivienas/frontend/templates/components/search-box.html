@@ -1,8 +1,9 @@
 <div class="search-container">
     <form action="/" method="get">
         <div class="search-box">
-            <input class="search-field" type="search" name="q" id="q" placeholder="Ieškok draugų">
-            <input type="submit" style="font-family: FontAwesome" value="&#xf002;" class="search-submit fa-fw">
+            <i class="fa fa-search fa-fw"></i>
+            <input class="search-field" type="search" name="q" id="q" placeholder="vardas, pomėgis, specialybė...">
+            <input type="submit" value="Ieškoti" class="search-submit">
         </div>
         <div class="filter-container">
             <div class="filter">
@@ -10,18 +11,20 @@
                     <option value="" selected>Miestas</option>
                     <option value="">----------</option>
                     <option value="vilnius">Vilnius</option>
+                    <option value="naujoji-akmene">Naujoji Akmenė</option>
+
                 </select>
             </div>
             <div class="filter">
                 <select name="lytis" id="gender-filter">
                     <option value="" selected>Lytis</option>
                     <option value="">----------</option>
-                    <option value="vyr">vyr.</option>
-                    <option value="mot">mot.</option>
+                    <option value="vyr">vyras</option>
+                    <option value="mot">moteris</option>
                 </select>
             </div>
             <div class="filter">
-                <select name="rikiuoti_pagal" id="gender-filter">
+                <select name="rikiavimas" id="gender-filter">
                     <option value="" selected>Rikiavimas</option>
                     <option value="">----------</option>
                     <option value="metai_up">Jauniausi</option>
