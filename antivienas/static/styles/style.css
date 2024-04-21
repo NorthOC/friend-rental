@@ -351,16 +351,18 @@ main{
 }
 /* RIGHT CONTAINER */
 .right-container{
-    padding: 10px 5px;
+    padding-right: 10px;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+    padding-bottom: 30px;
 }
 .right-container h2{
     font-weight: 400;
-    font-size: 28px;
+    font-size: 20px;
 }
 .right-container small{
-    font-size: 16px;
     color: var(--pre-text);
 }
 .right-container hr{
@@ -368,19 +370,15 @@ main{
     color: var(--fade);
 }
 /* STATS COMPONENT */
-.stats-container h3{
-    font-weight: 400;
-    font-size: 16px;
-}
 .stats-container .stats{
     display: flex;
     flex-direction: column;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: 10px;
 }
 .stats .stat-item{
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 2fr 1fr;
     margin-top: 10px;
 }
 .stat-item .name {
@@ -407,7 +405,6 @@ main{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-left: 10px;
 }
 .notification-container img{
     width: 45px;
@@ -430,11 +427,9 @@ main{
 }
 /* NEWS COMPONENT */
 .news-container .news{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 10px;
-    margin-top: 10px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    font-size: 0.9em;
 }
 .news-container .marker{
     padding: 2px 10px;
@@ -452,7 +447,6 @@ main{
 .news-item h3{
     align-self: center;
     font-weight: 400;
-    font-size: 20px;
 }
 .news-container a{
     text-decoration: none;
