@@ -24,5 +24,6 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('registracija/', views.register, name="register"),
     path("prisijungimas/", views.login, name="login"),
-    path("profile/<str:fname>-<str:lname>-<int:user_id>/", views.profile, name="profile")
+    path("profile/<str:fname>-<str:lname>-<int:user_id>/", views.profile, name="profile"),
+    path("susitikimai/", views.meeting_manager, name="meeting-manager")
 ]
